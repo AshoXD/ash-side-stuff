@@ -154,7 +154,7 @@ class TitleState extends MusicBeatState
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}
 
-		Conductor.changeBPM(102);
+		Conductor.changeBPM(146);
 		persistentUpdate = true;
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -169,6 +169,7 @@ class TitleState extends MusicBeatState
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 		logoBl.animation.play('bump');
 		logoBl.updateHitbox();
+		logoBl.screenCenter();
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
@@ -177,7 +178,6 @@ class TitleState extends MusicBeatState
 		gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		gfDance.antialiasing = true;
-		add(gfDance);
 		add(logoBl);
 
 		titleText = new FlxSprite(100, FlxG.height * 0.8);
@@ -187,7 +187,8 @@ class TitleState extends MusicBeatState
 		titleText.antialiasing = true;
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
-		// titleText.screenCenter(X);
+		titleText.screenCenter(X);
+		titleText.x = (titleText.x + 10);
 		add(titleText);
 
 		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
@@ -381,13 +382,13 @@ class TitleState extends MusicBeatState
 	{
 		super.beatHit();
 
-		logoBl.animation.play('bump');
+		logoBl.animation.play('bump', true);
 		danceLeft = !danceLeft;
 
 		if (danceLeft)
-			gfDance.animation.play('danceRight');
+			gfDance.animation.play('danceRight', true);
 		else
-			gfDance.animation.play('danceLeft');
+			gfDance.animation.play('danceLeft', true);
 
 		FlxG.log.add(curBeat);
 
@@ -438,15 +439,39 @@ class TitleState extends MusicBeatState
 			// credTextShit.text = "Friday";
 			// credTextShit.screenCenter();
 			case 13:
-				addMoreText('Friday');
+				createCoolText(['Music', 'by']);
+			case 15:
+				deleteCoolText();
+				createCoolText(['Charting', 'by']);
+			case 17:
+				deleteCoolText();
+				createCoolText(['Art', 'by']);
+			case 19:
+				deleteCoolText();
+				createCoolText(['Animation', 'by']);
+			case 21:
+				deleteCoolText();
+				createCoolText(['Coding', 'by']);
+			case 23:
+				deleteCoolText();
+				createCoolText(['Backgrounds', 'by']);
+			case 25:
+				deleteCoolText();
+				createCoolText(['Icons', 'by']);
+			case 27:
+				deleteCoolText();
+				createCoolText(['Me']);
+			case 29:
+				deleteCoolText();
+				createCoolText(['Friday']);
 			// credTextShit.visible = true;
-			case 14:
+			case 30:
 				addMoreText('Night');
 			// credTextShit.text += '\nNight';
-			case 15:
+			case 31:
 				addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
 
-			case 16:
+			case 32:
 				skipIntro();
 		}
 	}

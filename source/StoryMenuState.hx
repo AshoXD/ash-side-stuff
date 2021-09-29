@@ -26,34 +26,34 @@ class StoryMenuState extends MusicBeatState
 	var weekData:Array<Dynamic> = [
 		['Tutorial'],
 		['Bopeebo', 'Fresh', 'Dad Battle'],
-		['Spookeez', 'South', "Monster"],
-		['Pico', 'Philly Nice', "Blammed"],
-		['Satin Panties', "High", "Milf"],
-		['Cocoa', 'Eggnog', 'Winter Horrorland'],
-		['Senpai', 'Roses', 'Thorns']
+		['Unreleased'],
+		['Unreleased'],
+		['Unreleased'],
+		['Unreleased'],
+		['sUs']
 	];
 	var curDifficulty:Int = 1;
 
-	public static var weekUnlocked:Array<Bool> = [true, true, true, true, true, true, true];
+	public static var weekUnlocked:Array<Bool> = [true, false, false, false, false, false, false];
 
 	var weekCharacters:Array<Dynamic> = [
-		['', 'bf', 'gf'],
+		['', '', ''],
 		['dad', 'bf', 'gf'],
-		['spooky', 'bf', 'gf'],
 		['pico', 'bf', 'gf'],
-		['mom', 'bf', 'gf'],
-		['parents-christmas', 'bf', 'gf'],
-		['senpai', 'bf', 'gf']
+		['pico', 'bf', 'gf'],
+		['pico', 'bf', 'gf'],
+		['pico', 'bf', 'gf'],
+		['pico', 'bf', 'gf']
 	];
 
 	var weekNames:Array<String> = [
-		"",
-		"Daddy Dearest",
-		"Spooky Month",
-		"PICO",
-		"MOMMY MUST MURDER",
-		"RED SNOW",
-		"Hating Simulator ft. Moawling"
+		"Shy GF",
+		"Daddy Death",
+		"Unreleased (coming on next update)",
+		"Unreleased",
+		"Unreleased",
+		"Unreleased",
+		"???"
 	];
 
 	var txtWeekTitle:FlxText;
@@ -79,6 +79,9 @@ class StoryMenuState extends MusicBeatState
 		DiscordClient.changePresence("In the Story Mode Menu", null);
 		#end
 
+
+
+
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
@@ -90,7 +93,7 @@ class StoryMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36);
+		scoreText = new FlxText(10, 10, 0, "yo moma", 36);
 		scoreText.setFormat("VCR OSD Mono", 32);
 
 		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
@@ -104,8 +107,7 @@ class StoryMenuState extends MusicBeatState
 		rankText.screenCenter(X);
 
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
-		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFF9CF51);
-
+		var yellowBG:FlxSprite = new FlxSprite(0, 56).loadGraphic(Paths.image('void'));
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
 
@@ -145,9 +147,9 @@ class StoryMenuState extends MusicBeatState
 
 		trace("Line 96");
 
-		grpWeekCharacters.add(new MenuCharacter(0, 100, 0.5, false));
-		grpWeekCharacters.add(new MenuCharacter(450, 25, 0.9, true));
-		grpWeekCharacters.add(new MenuCharacter(850, 100, 0.5, true));
+		grpWeekCharacters.add(new MenuCharacter(-300, 0, 0.2, false));
+		grpWeekCharacters.add(new MenuCharacter(300, 0, 0.8, true));
+		grpWeekCharacters.add(new MenuCharacter(850, 110, 0.3, true));
 
 		difficultySelectors = new FlxGroup();
 		add(difficultySelectors);
@@ -192,6 +194,8 @@ class StoryMenuState extends MusicBeatState
 		add(scoreText);
 		add(txtWeekTitle);
 
+
+		
 		updateText();
 
 		trace("Line 165");

@@ -187,6 +187,7 @@ class MainMenuState extends MusicBeatState
 								FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 								{
 									goToState();
+									FlxG.camera.flash(FlxColor.WHITE, 1);
 								});
 							}
 							else

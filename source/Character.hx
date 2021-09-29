@@ -127,18 +127,37 @@ class Character extends FlxSprite
 				tex = Paths.getSparrowAtlas('characters/DADDY_DEAREST');
 				frames = tex;
 				animation.addByPrefix('idle', 'Dad idle dance', 24);
-				animation.addByPrefix('singUP', 'Dad Sing Note UP', 24);
-				animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT', 24);
+				animation.addByPrefix('singUP', 'Dad Sing note UP', 24);
+				animation.addByPrefix('singRIGHT', 'Dad Sing Note LEFT', 24);
 				animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 24);
-				animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24);
+				animation.addByPrefix('singLEFT', 'dad sing note right', 24);
+				animation.addByPrefix('hey', 'Dad HEY Animation', 24);
 
-				addOffset('idle');
-				addOffset("singUP", -6, 50);
-				addOffset("singRIGHT", 0, 27);
-				addOffset("singLEFT", -10, 10);
-				addOffset("singDOWN", 0, -30);
+				addOffset('idle', -12, 7);
+				addOffset("singUP", 84, 50);
+				addOffset("singRIGHT", 5, 7);
+				addOffset("singLEFT", 300, 10);
+				addOffset("singDOWN", 220, 17);
+				addOffset('hey', 0, 1);
 
 				playAnim('idle');
+			case 'dad-mad':
+					// DAD ANIMATION LOADING CODE
+					tex = Paths.getSparrowAtlas('characters/DADDY_DEATHEST');
+					frames = tex;
+					animation.addByPrefix('idle', 'Dad idle dance', 50);
+					animation.addByPrefix('singUP', 'Dad Sing note UP', 24);
+					animation.addByPrefix('singRIGHT', 'Dad Sing Note LEFT', 24);
+					animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 24);
+					animation.addByPrefix('singLEFT', 'dad sing note right', 24);
+	
+					addOffset('idle', -12, 7);
+					addOffset("singUP", 184, 50);
+					addOffset("singRIGHT", 115, 7);
+					addOffset("singLEFT", 310, 10);
+					addOffset("singDOWN", 240, -373);
+	
+					playAnim('idle');
 			case 'spooky':
 				tex = Paths.getSparrowAtlas('characters/spooky_kids_assets');
 				frames = tex;
@@ -284,22 +303,19 @@ class Character extends FlxSprite
 				animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
 				animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
 
-				animation.addByPrefix('scared', 'BF idle shaking', 24);
-
-				addOffset('idle', -5);
-				addOffset("singUP", -29, 27);
-				addOffset("singRIGHT", -38, -7);
-				addOffset("singLEFT", 12, -6);
+				addOffset('idle', -2, -9);
+				addOffset("singUP", -34, 21);
+				addOffset("singRIGHT", -57, -7);
+				addOffset("singLEFT", 41, -11);
 				addOffset("singDOWN", -10, -50);
-				addOffset("singUPmiss", -29, 27);
-				addOffset("singRIGHTmiss", -30, 21);
-				addOffset("singLEFTmiss", 12, 24);
-				addOffset("singDOWNmiss", -11, -19);
+				addOffset("singUPmiss", -34, 21);
+				addOffset("singRIGHTmiss", -57, -7);
+				addOffset("singLEFTmiss", 41, -11);
+				addOffset("singDOWNmiss", -10, -50);
 				addOffset("hey", 7, 4);
 				addOffset('firstDeath', 37, 11);
 				addOffset('deathLoop', 37, 5);
 				addOffset('deathConfirm', 37, 69);
-				addOffset('scared', -4);
 
 				playAnim('idle');
 
@@ -534,6 +550,14 @@ class Character extends FlxSprite
 			var dadVar:Float = 4;
 
 			if (curCharacter == 'dad')
+				dadVar = 6.1;
+			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
+			{
+				dance();
+				holdTimer = 0;
+			}
+
+			if (curCharacter == 'dad-mad')
 				dadVar = 6.1;
 			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
 			{

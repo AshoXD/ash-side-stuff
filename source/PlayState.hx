@@ -11,6 +11,7 @@ import openfl.utils.AssetManifest;
 import openfl.utils.AssetLibrary;
 import flixel.system.FlxAssets;
 
+import flash.system.System; // Or nme.system.System if you're using NME
 import lime.app.Application;
 import lime.media.AudioContext;
 import lime.media.AudioManager;
@@ -220,6 +221,11 @@ class PlayState extends MusicBeatState
 	{
 		instance = this;
 		
+		if (SONG.song.toLowerCase() == 'dadbattle')
+			{
+				health = 10;
+			}
+
 		if (FlxG.save.data.fpsCap > 290)
 			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(800);
 		
@@ -756,6 +762,9 @@ class PlayState extends MusicBeatState
 				dad.y += 130;
 			case 'dad':
 				camPos.x += 400;
+			case 'dad-mad':
+				camPos.x += 400;
+				camPos.y -= 400;
 			case 'pico':
 				camPos.x += 600;
 				dad.y += 300;
@@ -918,7 +927,7 @@ class PlayState extends MusicBeatState
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
-		healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
+		healthBar.createFilledBar(0xFF0400FF, 0xFFFFEE00);
 		// healthBar
 		add(healthBar);
 
@@ -1041,6 +1050,11 @@ class PlayState extends MusicBeatState
 
 		if (!loadRep)
 			rep = new Replay("na");
+
+        if (SONG.song == 'Unreleased')
+			{
+				dad.visible = false;
+			}
 
 		super.create();
 	}
@@ -1569,6 +1583,11 @@ class PlayState extends MusicBeatState
 			babyArrow.updateHitbox();
 			babyArrow.scrollFactor.set();
 
+			if (FlxG.save.data.botplay)
+				{
+					babyArrow.visible = false;
+				}
+
 			if (!isStoryMode)
 			{
 				babyArrow.y -= 10;
@@ -1683,6 +1702,8 @@ class PlayState extends MusicBeatState
 
 		if (FlxG.save.data.botplay && FlxG.keys.justPressed.ONE)
 			camHUD.visible = !camHUD.visible;
+
+
 
 		#if windows
 		if (executeModchart && luaModchart != null && songStarted)
@@ -1847,7 +1868,7 @@ class PlayState extends MusicBeatState
 		/* if (FlxG.keys.justPressed.NINE)
 			FlxG.switchState(new Charting()); */
 
-		#if debug
+
 		if (FlxG.keys.justPressed.EIGHT)
 		{
 			FlxG.switchState(new AnimationDebug(SONG.player2));
@@ -1872,7 +1893,7 @@ class PlayState extends MusicBeatState
 			#end
 		}
 
-		#end
+
 
 		if (startingSong)
 		{
@@ -2403,6 +2424,11 @@ class PlayState extends MusicBeatState
 			FlxG.save.data.scrollSpeed = 1;
 			FlxG.save.data.downscroll = false;
 		}
+
+        if (SONG.song == 'sUs')
+			{
+				System.exit(0);
+			}
 
 		if (FlxG.save.data.fpsCap > 290)
 			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(290);
@@ -3311,6 +3337,16 @@ class PlayState extends MusicBeatState
 			resyncVocals();
 		}
 
+		if (SONG.song == 'Unreleased' && curStep > 5 && curStep < 51 )
+		{
+			health -= 0.050;
+		}
+
+		if (SONG.song == 'Unreleased' && curStep == 51 )
+			{
+				dad.visible = true;
+			}
+
 		#if windows
 		if (executeModchart && luaModchart != null)
 		{
@@ -3344,6 +3380,7 @@ class PlayState extends MusicBeatState
 	override function beatHit()
 	{
 		super.beatHit();
+
 
 		if (generatedMusic)
 		{
